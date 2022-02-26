@@ -6,10 +6,10 @@ const ImageCard = ({ image }) => {
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img className="w-full" src={image.webformatURL} alt="" />
       <div className="px-6 py-4">
-        <div className="font-bold text-purple-500 text-xl mb-2">
+        <div className="font-bold text-purple-500 text-xs mb-2 sm:text-xl">
           Photo By {image.user}
         </div>
-        <ul>
+        <ul className="text-xs sm:text-base">
           <li>
             <strong>Views:</strong>
             {image.views}
@@ -25,7 +25,7 @@ const ImageCard = ({ image }) => {
         </ul>
       </div>
 
-      <div className="px-6 py-4">
+      <div className="px-6 py-4 hidden sm:inline-block">
         {tags.map((tag, index) => (
           <span
             key={index}
