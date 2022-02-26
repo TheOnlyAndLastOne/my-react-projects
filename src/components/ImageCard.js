@@ -6,10 +6,10 @@ const ImageCard = ({ image }) => {
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img className="w-full" src={image.webformatURL} alt="" />
       <div className="px-6 py-4">
-        <div className="font-bold text-purple-500 text-xs mb-2 sm:text-xl">
+        <div className="font-bold text-purple-500 text-xs mb-2 sm:text-xl overflow-auto">
           Photo By {image.user}
         </div>
-        <ul className="text-xs sm:text-base">
+        <ul className="text-xs sm:text-base overflow-auto">
           <li>
             <strong>Views:</strong>
             {image.views}
