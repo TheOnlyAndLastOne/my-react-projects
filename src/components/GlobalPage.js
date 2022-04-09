@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import { Button, Container } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -16,9 +16,17 @@ const GlobalPage = () => {
   return (
     <div>
       <Container maxWidth="md" className={classes.container}>
-        <Link to="/pageOne">
-          <Button variant="contained">page1</Button>
-        </Link>
+        <RouterLink to="/pageOne">
+          <Button variant="contained" sx={{ marginRight: 3 }}>
+            page1
+          </Button>
+        </RouterLink>
+
+        <RouterLink to="/pageTwo">
+          <Button variant="contained" sx={{ marginRight: 3 }}>
+            page2
+          </Button>
+        </RouterLink>
       </Container>
     </div>
   );
