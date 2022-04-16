@@ -3,6 +3,8 @@ import { useWeb3React } from "@web3-react/core";
 import { injected } from "./connectors";
 import { getContract } from "./contract";
 import { BigNumber } from "@ethersproject/bignumber";
+import { parseEther } from "@ethersproject/units";
+import { width } from "@mui/system";
 
 const MetamaskComponent = () => {
   //connector, library, chainId, account, activate, deactivate
@@ -56,11 +58,25 @@ const MetamaskComponent = () => {
     console.log(response.toNumber());
   };
 
-  const [value, setValue] = useState(0);
+  const sendEther = async () => {
+    const signer = web3reactContext.library
+      .getSigner(web3reactContext.account)
+      .connectUnchecked();
+    console.log(signer);
+    const res = await signer.sendTransaction({
+      to: toAccount,
+      value: parseEther(ether),
+    });
+    console.log(res);
+    console.log(`success send account ${toAccount} ${ether} ether`);
+  };
 
+  const [value, setValue] = useState(0);
+  const [ether, setEther] = useState(0);
+  const [toAccount, setToAccount] = useState(0);
   return (
     <div>
-      <div className="flex space-x-3 mb-4">
+      <div className="flex space-x-3 mb-4 ml-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={getWeb3reactContext}
@@ -69,7 +85,7 @@ const MetamaskComponent = () => {
         </button>
       </div>
 
-      <div className="flex space-x-3 mb-4">
+      <div className="flex space-x-3 mb-4 ml-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={connectMetamaskSimple}
@@ -78,7 +94,7 @@ const MetamaskComponent = () => {
         </button>
       </div>
 
-      <div className="flex space-x-3 mb-4">
+      <div className="flex space-x-3 mb-4 ml-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={disconnectMetamaskSimple}
@@ -87,7 +103,7 @@ const MetamaskComponent = () => {
         </button>
       </div>
 
-      <div className="flex space-x-3 mb-4">
+      <div className="flex space-x-3 mb-4 ml-4">
         <input type="text" onChange={(e) => setValue(e.target.value)} />
         {value}
         <button
@@ -98,12 +114,34 @@ const MetamaskComponent = () => {
         </button>
       </div>
 
-      <div className="flex space-x-3 mb-4">
+      <div className="flex space-x-3 mb-4 ml-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={queryValue}
         >
           get value
+        </button>
+      </div>
+
+      <div className="flex space-x-3 mb-4 ml-4">
+        <input
+          type="text"
+          placeholder="to account"
+          onChange={(e) => setToAccount(e.target.value)}
+          className="w-[450px] border-2"
+        />
+        <input
+          type="text"
+          placeholder="ether count"
+          onChange={(e) => setEther(e.target.value)}
+          className="border-2"
+        />
+
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={sendEther}
+        >
+          send ether
         </button>
       </div>
     </div>
